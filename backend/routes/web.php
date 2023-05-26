@@ -16,3 +16,6 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
+$router->get('/ciudades/obtener-humedad/{lat}/{lon}', 'CiudadController@obtenerHumedad');
+$router->get('/ciudades/weather-log', 'CiudadController@getWeatherLog');
