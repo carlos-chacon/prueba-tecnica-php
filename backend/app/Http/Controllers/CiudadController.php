@@ -64,7 +64,7 @@ class CiudadController extends Controller
 
     public function getWeatherLog()
     {
-        $weatherLog = WeatherLog::paginate($this->numberPage);
+        $weatherLog = WeatherLog::orderBy('created_at', 'desc')->paginate($this->numberPage);
         return $weatherLog;
     }
 }
