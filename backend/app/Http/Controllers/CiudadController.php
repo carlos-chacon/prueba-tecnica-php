@@ -18,6 +18,7 @@ class CiudadController extends Controller
         'lang' => 'es',
         'exclude' => 'hourly,daily,minutely',
         'appid' => '',
+        'units' => 'metric',
     ];
 
     private $httpHelper;
