@@ -23,6 +23,7 @@ class CiudadController extends Controller
 
     private $httpHelper;
     private $numberPage = 20;
+    private $urlApiOpenStreetMap = 'https://nominatim.openstreetmap.org';
 
     public function __construct()
     {
@@ -43,6 +44,7 @@ class CiudadController extends Controller
             $this->code_response = $response['cod'];
         }
         if ($this->code_response === 200) {
+            $response['address'] = $this->getAddressGeolocation($lat, $lon);
             $this->storeWeatherLog($response);
         }
         return response()->json($response, $this->code_response);
@@ -67,5 +69,24 @@ class CiudadController extends Controller
     {
         $weatherLog = WeatherLog::orderBy('created_at', 'desc')->paginate($this->numberPage);
         return $weatherLog;
+    }
+
+    public function getAddressGeolocation($lat, $lon) {
+        $reverseGeocoding = $this->httpHelper->get("{$this->urlApiOpenStreetMap}/reverse", [
+            'format'=> 'jsonv2',
+            'lat'=> $lat,
+            'lon'=> $lon,
+            'zoom'=> [0-10],
+        ]);
+        $response = '';
+        if (!array_key_exists('error', $reverseGeocoding)) {
+            $addressType = [
+                'town', 'city', 'village', 'county'
+            ];
+            $addressFiltered = array_intersect_key($reverseGeocoding['address'], array_flip($addressType));
+
+            $response = implode(', ', $addressFiltered);
+        }
+        return $response;
     }
 }

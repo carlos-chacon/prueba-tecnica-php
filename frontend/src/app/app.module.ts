@@ -6,11 +6,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { FullComponent } from './layouts/full/full.component';
 import { ApiService } from './shared/services/api.service';
+import { HeaderComponent } from './layouts/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    FullComponent
+    FullComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

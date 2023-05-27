@@ -8,8 +8,8 @@ const routes: Routes = [
     component: FullComponent,
     children: [
       { path: '', redirectTo: '/home', pathMatch: 'full' },
-      { path: "home", loadChildren: () => import("./modules/home/home.module").then((m) => m.HomeModule) },
-      { path: "weather-log", loadChildren: () => import("./modules/weather-log/weather-log.module").then((m) => m.WeatherLogModule) },
+      { path: "home", title: 'Humedad por Ciudad', loadChildren: () => import("./modules/home/home.module").then((m) => m.HomeModule) },
+      { path: "weather-log", title: 'Histórico de consultas', loadChildren: () => import("./modules/weather-log/weather-log.module").then((m) => m.WeatherLogModule) },
     ]
   },
   {

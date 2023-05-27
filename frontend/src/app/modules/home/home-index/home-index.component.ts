@@ -1,4 +1,4 @@
-import { AfterViewInit, Component } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import {
   Icon,
   LeafletMouseEvent,
@@ -9,14 +9,16 @@ import {
   tileLayer,
   Control,
 } from 'leaflet';
+import { CiudadInterface } from 'src/app/shared/interfaces/ciudad.interface';
 import { ApiService } from 'src/app/shared/services/api.service';
+import { HeaderService } from 'src/app/shared/services/header.service';
 
 @Component({
   selector: 'app-home-index',
   templateUrl: './home-index.component.html',
   styleUrls: ['./home-index.component.scss'],
 })
-export class HomeIndexComponent implements AfterViewInit {
+export class HomeIndexComponent implements AfterViewInit, OnInit {
   options = {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -32,19 +34,23 @@ export class HomeIndexComponent implements AfterViewInit {
   marker!: Marker;
 
   cities = [
-    { name: 'Miami', latitude: 25.7824792, longitude: -80.3851769 },
-    // { name: 'Orlando', latitude: 28.4811202, longitude: -81.6541434 },
-    // { name: 'New York', latitude: 40.6976307, longitude: -74.1448305 },
+    { name: 'Miami', latitude: 25.77093125, longitude: -80.19233518820613 },
+    { name: 'Orlando', latitude: 28.537480962623437, longitude: -81.37744903564455 },
+    { name: 'New York', latitude: 40.705216050000004, longitude: -73.99575931949556 },
   ];
 
   customControl = new CustomInfoControl('');
 
-  constructor(private apiService: ApiService) {}
+  constructor(private apiService: ApiService, private hs: HeaderService) {}
+
+  ngOnInit(): void {
+    this.hs.titleHeader.emit('Humedad por Ciudad');
+    this.hs.descriptionHeader.emit('lsdlfs');
+  }
 
   ngAfterViewInit(): void {}
 
   onMapReady(map: Map) {
-    console.log('onMapReady');
     const iconMarker = {
       ...Icon.Default.prototype.options,
       iconUrl: 'assets/marker-icon.png',
@@ -59,71 +65,59 @@ export class HomeIndexComponent implements AfterViewInit {
 
     this.customControl.addTo(this.map);
 
-    this.cities.forEach((city) => {
-      this.apiService
-        .getObs(
-          `/v1/ciudades/obtener-humedad/${city.latitude}/${city.longitude}`
-        )
-        .subscribe({
-          next: (resp: any) => {
-            console.log(resp);
-            const markerCity = new Marker(
-              latLng(city.latitude, city.longitude),
-              {
-                icon: icon(iconMarker),
-              }
-            ).addTo(this.map);
-            markerCity.bindPopup(this.getHtmlPopup(resp)).openPopup();
-            this.customControl.update({
-              name: city.name,
-              humidity: resp.current.humidity,
-            });
-          },
-          error: (err) => {
-            console.log(err);
-          },
-        });
-    });
+    // this.cities.forEach((city) => {
+    //   this.apiService
+    //     .getObs(
+    //       `/v1/ciudades/obtener-humedad/${city.latitude}/${city.longitude}`
+    //     )
+    //     .subscribe({
+    //       next: (resp: any) => {
+    //         console.log(resp);
+    //         const markerCity = new Marker(
+    //           latLng(city.latitude, city.longitude),
+    //           {
+    //             icon: icon(iconMarker),
+    //           }
+    //         ).addTo(this.map);
+    //         markerCity.bindPopup(this.getHtmlPopup(resp)).openPopup();
+    //         this.customControl.update({
+    //           name: city.name,
+    //           humidity: resp.current.humidity,
+    //         });
+    //       },
+    //       error: (err) => {},
+    //     });
+    // });
   }
 
   onMapClick(event: LeafletMouseEvent) {
     const lat = event.latlng.lat;
     const lng = event.latlng.lng;
+    this.marker.setLatLng(latLng(lat, lng));
+    this.marker.bindPopup(this.getHtmlPopup()).openPopup();
     this.apiService
       .getObs(`/v1/ciudades/obtener-humedad/${lat}/${lng}`)
       .subscribe({
         next: (resp: any) => {
-          console.log(resp);
-          this.marker.setLatLng(latLng(lat, lng));
           this.marker.bindPopup(this.getHtmlPopup(resp)).openPopup();
-          // this.customControl.update({
-          //   name: '',
-          //   humidity: resp.current.humidity,
-          // });
         },
-        error: (err) => {
-          console.log(err);
-        },
+        error: (err) => {},
       });
-    // this.marker.setLatLng(event.latlng);
-    // this.marker
-    //   .bindPopup(this.getHtmlPopup())
-    //   .openPopup();
-    // console.log('Latitud:', lat);
-    // console.log('Longitud:', lng);
   }
 
-  getHtmlPopup(props: any) {
+  getHtmlPopup(props?: CiudadInterface) {
+    if (!props) return '<div class="animate-pulse">cargando...</div>';
+
     return `
     <ul class="list-none list-inside">
-      <li class="mb-1">Ciudad: Bucaramanga</li>
-      <li class="mb-1">Humedad: ${props.current.humidity}%</li>
-      <li class="mb-1">Temperatura: ${props.current.temp} °C</li>
+      <li class="mb-1 font-bold">${props?.address}</li>
+      <li class="mb-1">Humedad: ${props?.current.humidity}%</li>
+      <li class="mb-1">Temperatura: ${props?.current.temp} °C</li>
       <li class="mb-1">
         <div class="flex gap-x-4">
-          <img class="h-12 w-12 flex-none rounded-full" src="https://openweathermap.org/img/w/${props.current.weather[0].icon}.png" alt="">
+          <img class="h-12 w-12 flex-none rounded-full" src="https://openweathermap.org/img/w/${props?.current.weather[0].icon}.png" alt="">
           <div class="min-w-0 flex-auto inline-block">
-            <p class="">${props.current.weather[0].description}</p>
+            <p class="">${props?.current.weather[0].description}</p>
           </div>
         </div>
       </li>
@@ -135,12 +129,12 @@ export class HomeIndexComponent implements AfterViewInit {
 export class CustomInfoControl extends Control {
   controlDiv = document.createElement('div');
   constructor(private infoText: string) {
-    super({ position: 'topright' }); // Puedes ajustar la posición del control aquí
+    super({ position: 'topright' });
+    this.controlDiv.className = "bg-white p-2";
   }
 
   override onAdd(map: Map): HTMLElement {
-    // const controlDiv = document.createElement('div');
-    this.controlDiv.innerHTML = '<h4>Humedad por ciudad:</h4>';
+    this.controlDiv.innerHTML = '<h4 class="font-bold">Humedad por ciudad:</h4>';
     this.update();
     return this.controlDiv;
   }
