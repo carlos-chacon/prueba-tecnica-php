@@ -38,10 +38,10 @@ _Para la instalación del proyecto y después de haber clonado el repositorio se
 cd backend/docker/
 ```
 
-_Y repite_
+_Creamos una copia del archivos de variables del proyecto_
 
-```
-hasta finalizar
+```sh
+cp .env.example .env
 ```
 
 _Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
