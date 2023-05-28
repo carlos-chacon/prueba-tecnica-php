@@ -100,10 +100,6 @@ ng s --port=4201
 
 _El sitio web queda expuesto en **http://localhost:4201**_
 
-## Despliegue 📦
-
-_Agrega notas adicionales sobre como hacer deploy_
-
 ## Construido con 🛠️
 
 * [Laravel Lumen](https://lumen.laravel.com/) - Framework php
