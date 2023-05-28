@@ -108,6 +108,7 @@ _El sitio web queda expuesto en **http://localhost:4201**_
 
 * [Laravel Lumen](https://lumen.laravel.com/) - Framework php
 * [Angular](https://maven.apache.org/) - Framework Javascript
+* [Docker](https://www.docker.com/)
 
 ## Autor ✒️
 
