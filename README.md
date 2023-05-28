@@ -1,31 +1,37 @@
-# prueba-tecnica-php
-DESARROLLADOR PHP SENIOR
+# Prueba práctica php
 
-# Título del Proyecto
-
-_Acá va un párrafo que describa lo que es el proyecto_
+_Realizar un microservicio que consulte la humedad de las ciudades Miami,
+Orlando y New York. Para esto se debe crear un sitio web donde se muestre
+por medio de un mapa el resultado del microservicio, adicionalmente se
+debe almacenar en un historial que se pueda consultar a través de un link
+en la página._
 
 ## Comenzando 🚀
 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento en tu máquina local para propósitos de desarrollo y pruebas._
 
-Mira **Deployment** para conocer como desplegar el proyecto.
-
-
-### Pre-requisitos 📋
-
-_Que cosas necesitas para instalar el software y como instalarlas_
-
+_Puedes empezar clonando el proyecto con el siguiente comando._
 
 ```
-Da un ejemplo
+git clone git@github.com:carlos-chacon/prueba-tecnica-php.git
 ```
 
-### Instalación 🔧
+_Esta aplicación esta construida, en el backend con php (Laravel Lumen) y en el frontend con Angular_
 
-_Una serie de ejemplos paso a paso que te dice lo que debes ejecutar para tener un entorno de desarrollo ejecutandose_
 
-_Dí cómo será ese paso_
+## Pre-requisitos 📋
+
+- [Docker](https://www.docker.com/)
+- [Node.js](https://nodejs.org/en/download/)
+
+
+## Instalación 🔧
+
+_Para la instalación del proyecto y después de haber clonado el repositorio seguiremos los siguientes pasos_
+
+### Backend php
+
+- _Dí cómo será ese paso_
 
 ```
 Da un ejemplo
