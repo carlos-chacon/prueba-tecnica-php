@@ -30,11 +30,12 @@ _Esta aplicación esta construida, en el backend con php (Laravel Lumen) y en el
 _Para la instalación del proyecto y después de haber clonado el repositorio seguiremos los siguientes pasos:_
 
 ### Backend php
+#### Usando Contenedor Docker:
 
-- _Dí cómo será ese paso_
+- _Nos ubicamos en el directorio backend/docker_
 
 ```sh
-Da un ejemplo
+cd backend/docker/
 ```
 
 _Y repite_
