@@ -13,7 +13,11 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 _Puedes empezar clonando el proyecto con el siguiente comando._
 
 ```
-git clone git@github.com:carlos-chacon/prueba-tecnica-php.git
+git clone https://github.com/carlos-chacon/prueba-tecnica-php.git
+```
+
+```
+cd prueba-tecnica-php/
 ```
 
 _Esta aplicación esta construida, en el backend con php (Laravel Lumen) y en el frontend con Angular_
