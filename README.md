@@ -27,13 +27,13 @@ _Esta aplicación esta construida, en el backend con php (Laravel Lumen) y en el
 
 ## Instalación 🔧
 
-_Para la instalación del proyecto y después de haber clonado el repositorio seguiremos los siguientes pasos_
+_Para la instalación del proyecto y después de haber clonado el repositorio seguiremos los siguientes pasos:_
 
 ### Backend php
 
 - _Dí cómo será ese paso_
 
-```
+``` bash
 Da un ejemplo
 ```
 
