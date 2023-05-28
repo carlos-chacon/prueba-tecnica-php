@@ -34,7 +34,7 @@ _Para la instalación del proyecto y después de haber clonado el repositorio se
 
 - _Nos ubicamos en el directorio backend/docker_
 
-```sh
+```bash
 cd backend/docker/
 ```
 
