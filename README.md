@@ -38,11 +38,34 @@ _Para la instalación del proyecto y después de haber clonado el repositorio se
 cd backend/docker/
 ```
 
-_Creamos una copia del archivos de variables del proyecto_
+- _Creamos una copia del archivos de variables del proyecto_
 
 ```sh
 cp .env.example .env
 ```
+
+- _Poner en marcha los contenedor docker. Se levantaran los contenedores php, nginx y el espacio de trabajo donde esta el código php_
+
+```sh
+docker-compose up -d nginx mysql
+```
+
+#### Instalación y configuración proyecto php (Laravel Lumen):
+
+- _Estando en el directorio backend/docker/ ejecutamos los siguiente comandos:_
+
+```sh
+docker-compose exec workspace bash
+```
+
+- _Dentro del shell, ejecutamos los siguientes comandos:_
+```sh
+:/var/www# composer install
+:/var/www# php artisan key:generate
+:/var/www# php artisan config:cache
+:/var/www# php artisan migrate:fresh --seed
+```
+
 
 _Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
 
