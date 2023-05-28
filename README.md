@@ -38,7 +38,7 @@ _Para la instalación del proyecto y después de haber clonado el repositorio se
 cd backend/docker/
 ```
 
-- _Creamos una copia del archivos de variables del proyecto_
+- _Creamos una copia del archivos de variables docker_
 
 ```sh
 cp .env.example .env
@@ -60,10 +60,7 @@ docker-compose exec workspace bash
 
 - _Dentro del shell, ejecutamos los siguientes comandos:_
 ```sh
-:/var/www# composer install
-:/var/www# php artisan key:generate
-:/var/www# php artisan config:cache
-:/var/www# php artisan migrate:fresh --seed
+composer install
 ```
 
 
