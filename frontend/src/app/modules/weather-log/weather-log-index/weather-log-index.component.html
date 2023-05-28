@@ -1,4 +1,16 @@
+<div class="mb-3 px-4">
+
+  <div class="max-w-xl lg:max-w-lg">
+    <div class=" flex max-w-md gap-x-4">
+      <input id="search" name="search" type="text" autocomplete="off" required class="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2  shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" placeholder="Buscar ..." #inputSearch (keyup.enter)="searchLogs()">
+      <button type="submit" class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" (click)="searchLogs()" >Buscar</button>
+    </div>
+  </div>
+
+</div>
+
 <div class="container bg-white px-4">
+
 
   <ul role="list" class="divide-y divide-gray-100 " [ngClass]="{'animate-pulse': loading}">
     <li class="flex justify-between gap-x-6 py-3" *ngFor="let log of logsResponse">
@@ -21,13 +33,14 @@
 
 </div>
 
-<div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6" *ngIf="dataResponseLog">
+<div class="flex items-center justify-between border-t border-gray-200 bg-white px-4 py-3 sm:px-6"
+  *ngIf="dataResponseLog">
 
   <div class="flex flex-1 justify-between sm:hidden">
-    <div
+    <div (click)="goToPageUrl(dataResponseLog.prev_page_url)"
       class="relative inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer">
       Anterior</div>
-    <div
+    <div (click)="goToPageUrl(dataResponseLog.next_page_url)"
       class="relative ml-3 inline-flex items-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 cursor-pointer">
       Siguiente</div>
   </div>
@@ -44,6 +57,7 @@
         resultados
       </p>
     </div>
+
     <div>
       <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
 

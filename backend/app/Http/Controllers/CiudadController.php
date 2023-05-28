@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Helpers\HttpHelper;
 use App\Http\Controllers\Controller;
 use App\Models\WeatherLog;
+use Illuminate\Support\Facades\DB;
 
 class CiudadController extends Controller
 {
@@ -67,16 +68,31 @@ class CiudadController extends Controller
 
     public function getWeatherLog()
     {
-        $weatherLog = WeatherLog::orderBy('created_at', 'desc')->paginate($this->numberPage);
-        return $weatherLog;
+        $q = request()->has('q') ? request()->get('q') : null;
+        $weatherLog = WeatherLog::query();
+
+        if ($q) {
+            $weatherLog->where(function ($query) use ($q) {
+                $query->where('city', 'like', "%{$q}%")
+                    ->orWhere('timezone', 'like', "%{$q}%")
+                    ->orWhere('weather', 'like', "%{$q}%")
+                    ->orWhere('created_at', 'like', "%{$q}%");
+            });
+        }
+
+        $weatherLog->orderBy('created_at', 'desc');
+        $resp = $weatherLog->paginate($this->numberPage);
+
+        return $resp;
     }
 
-    public function getAddressGeolocation($lat, $lon) {
+    public function getAddressGeolocation($lat, $lon)
+    {
         $reverseGeocoding = $this->httpHelper->get("{$this->urlApiOpenStreetMap}/reverse", [
-            'format'=> 'jsonv2',
-            'lat'=> $lat,
-            'lon'=> $lon,
-            'zoom'=> [0-10],
+            'format' => 'jsonv2',
+            'lat' => $lat,
+            'lon' => $lon,
+            'zoom' => [0 - 10],
         ]);
         $response = '';
         if (!array_key_exists('error', $reverseGeocoding)) {
