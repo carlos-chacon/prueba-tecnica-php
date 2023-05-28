@@ -95,7 +95,7 @@ API_KEY_OPEN_WEATHER_MAP=
 _Nos ubicamos en el directorio frontend de la raíz del proyecto, y ejecutamos los siguientes comandos:_
 
 ```sh
-cd ..
+cd ../..
 ```
 ```sh
 cd frontend/
