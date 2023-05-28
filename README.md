@@ -33,7 +33,7 @@ _Para la instalación del proyecto y después de haber clonado el repositorio se
 
 - _Dí cómo será ese paso_
 
-``` bash
+```sh
 Da un ejemplo
 ```
 
