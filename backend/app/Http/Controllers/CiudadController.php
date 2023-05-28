@@ -22,7 +22,7 @@ class CiudadController extends Controller
     ];
 
     private $httpHelper;
-    private $numberPage = 20;
+    private $numberPage = 10;
     private $urlApiOpenStreetMap = 'https://nominatim.openstreetmap.org';
 
     public function __construct()
@@ -54,7 +54,7 @@ class CiudadController extends Controller
     {
 
         $weatherLog = new WeatherLog;
-        $weatherLog->city = $datos['timezone'];
+        $weatherLog->city = $datos['address'];
         $weatherLog->lat = $datos['lat'];
         $weatherLog->lon = $datos['lon'];
         $weatherLog->humidity = $datos['current']['humidity'];

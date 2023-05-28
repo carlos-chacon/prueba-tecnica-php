@@ -29,4 +29,11 @@ class WeatherLog extends Model
         'timezone',
         'weather',
     ];
+
+    public function getWeatherAttribute()
+    {
+        $value = $this->attributes['weather'];
+        $formattedValue = json_decode($value);
+        return $formattedValue;
+    }
 }
