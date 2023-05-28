@@ -23,6 +23,7 @@ _Esta aplicación esta construida, en el backend con php (Laravel Lumen) y en el
 
 - [Docker](https://www.docker.com/)
 - [Node.js](https://nodejs.org/en/download/)
+- [Angular CLI](https://angular.io/cli/)
 
 
 ## Instalación 🔧
@@ -60,31 +61,44 @@ docker-compose exec workspace bash
 
 - _Dentro del shell, ejecutamos los siguientes comandos:_
 ```sh
+cp .env.example .env
+```
+```sh
 composer install
 ```
-
-
-_Finaliza con un ejemplo de cómo obtener datos del sistema o como usarlos para una pequeña demo_
-
-## Ejecutando las pruebas ⚙️
-
-_Explica como ejecutar las pruebas automatizadas para este sistema_
-
-### Analice las pruebas end-to-end 🔩
-
-_Explica que verifican estas pruebas y por qué_
-
-```
-Da un ejemplo
+```sh
+php artisan migrate
 ```
 
-### Y las pruebas de estilo de codificación ⌨️
+- _Después de realizar los pasos anterior los servicios (php) quedan expuestos en **http://localhost** ._
+    _Existen dos servicios:_
+    1. _Obtener la humedad de una ciudad por medio de las coordenadas (latitud, longitud): **http://localhost/api/v1/ciudades/obtener-humedad/{lat}/{long}**_
+    2. _Mostrar el historial de consultas de humedad por ciudad: **http://localhost/api/v1/ciudades/weather-log?page={numPage}&q={textoBuscar}**_
 
-_Explica que verifican estas pruebas y por qué_
 
+_Nota: para el servicio "obtener humedad" se utiliza la api **https://openweathermap.org/api/one-call-3**, de debe colocar la api key en el archivo .env que esta en el directorio backend._
+```sh
+...
+
+API_KEY_OPEN_WEATHER_MAP=
 ```
-Da un ejemplo
+
+### Frontend Angular
+
+_Nos ubicamos en el directorio frontend del raíz del proyecto, y ejecutamos los siguientes comandos:_
+
+```sh
+cd frontend/
 ```
+```sh
+npm install
+```
+
+```sh
+ng s --port=4201
+```
+
+_El sitio web queda expuesto en **http://localhost:4201**_
 
 ## Despliegue 📦
 
@@ -92,47 +106,13 @@ _Agrega notas adicionales sobre como hacer deploy_
 
 ## Construido con 🛠️
 
-_Menciona las herramientas que utilizaste para crear tu proyecto_
+* [Laravel Lumen](https://lumen.laravel.com/) - Framework php
+* [Angular](https://maven.apache.org/) - Framework Javascript
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - El framework web usado
-* [Maven](https://maven.apache.org/) - Manejador de dependencias
-* [ROME](https://rometools.github.io/rome/) - Usado para generar RSS
-
-## Contribuyendo 🖇️
-
-Por favor lee el [CONTRIBUTING.md](https://gist.github.com/villanuevand/xxxxxx) para detalles de nuestro código de conducta, y el proceso para enviarnos pull requests.
-
-## Wiki 📖
-
-Puedes encontrar mucho más de cómo utilizar este proyecto en nuestra [Wiki](https://github.com/tu/proyecto/wiki)
-
-## Versionado 📌
-
-Usamos [SemVer](http://semver.org/) para el versionado. Para todas las versiones disponibles, mira los [tags en este repositorio](https://github.com/tu/proyecto/tags).
-
-## Autores ✒️
-
-_Menciona a todos aquellos que ayudaron a levantar el proyecto desde sus inicios_
-
-* **Andrés Villanueva** - *Trabajo Inicial* - [villanuevand](https://github.com/villanuevand)
-* **Fulanito Detal** - *Documentación* - [fulanitodetal](#fulanito-de-tal)
-
-También puedes mirar la lista de todos los [contribuyentes](https://github.com/your/project/contributors) quíenes han participado en este proyecto. 
-
-## Licencia 📄
-
-Este proyecto está bajo la Licencia (Tu Licencia) - mira el archivo [LICENSE.md](LICENSE.md) para detalles
-
-## Expresiones de Gratitud 🎁
-
-* Comenta a otros sobre este proyecto 📢
-* Invita una cerveza 🍺 o un café ☕ a alguien del equipo. 
-* Da las gracias públicamente 🤓.
-* Dona con cripto a esta dirección: `0xf253fc233333078436d111175e5a76a649890000`
-* etc.
+## Autor ✒️
 
 
+* **Carlos Chacón** - *Trabajo Inicial* - [carlos-chacon](https://github.com/carlos-chacon)
 
 ---
-⌨️ con ❤️ por [Villanuevand](https://github.com/Villanuevand) 😊
 
