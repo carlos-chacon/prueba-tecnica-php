@@ -35,8 +35,16 @@ export class HomeIndexComponent implements AfterViewInit, OnInit {
 
   cities = [
     { name: 'Miami', latitude: 25.77093125, longitude: -80.19233518820613 },
-    { name: 'Orlando', latitude: 28.537480962623437, longitude: -81.37744903564455 },
-    { name: 'New York', latitude: 40.705216050000004, longitude: -73.99575931949556 },
+    {
+      name: 'Orlando',
+      latitude: 28.537480962623437,
+      longitude: -81.37744903564455,
+    },
+    {
+      name: 'New York',
+      latitude: 40.705216050000004,
+      longitude: -73.99575931949556,
+    },
   ];
 
   customControl = new CustomInfoControl('');
@@ -45,7 +53,9 @@ export class HomeIndexComponent implements AfterViewInit, OnInit {
 
   ngOnInit(): void {
     this.hs.titleHeader.emit('Humedad por Ciudad');
-    this.hs.descriptionHeader.emit('lsdlfs');
+    this.hs.descriptionHeader
+      .emit(`En el mapa mostrara la Humedad de las ciudades: Miami, Orlando y New York. Al darle click sobre el marcador se puede observar algunos detalles del clima.
+    También al darle click sobre alguna zona del mapa mostrara algunos datos como Humedad, Temperatura y una pequeña descripción del clima.`);
   }
 
   ngAfterViewInit(): void {}
@@ -65,29 +75,28 @@ export class HomeIndexComponent implements AfterViewInit, OnInit {
 
     this.customControl.addTo(this.map);
 
-    // this.cities.forEach((city) => {
-    //   this.apiService
-    //     .getObs(
-    //       `/v1/ciudades/obtener-humedad/${city.latitude}/${city.longitude}`
-    //     )
-    //     .subscribe({
-    //       next: (resp: any) => {
-    //         console.log(resp);
-    //         const markerCity = new Marker(
-    //           latLng(city.latitude, city.longitude),
-    //           {
-    //             icon: icon(iconMarker),
-    //           }
-    //         ).addTo(this.map);
-    //         markerCity.bindPopup(this.getHtmlPopup(resp)).openPopup();
-    //         this.customControl.update({
-    //           name: city.name,
-    //           humidity: resp.current.humidity,
-    //         });
-    //       },
-    //       error: (err) => {},
-    //     });
-    // });
+    this.cities.forEach((city) => {
+      this.apiService
+        .getObs(
+          `/v1/ciudades/obtener-humedad/${city.latitude}/${city.longitude}`
+        )
+        .subscribe({
+          next: (resp: any) => {
+            const markerCity = new Marker(
+              latLng(city.latitude, city.longitude),
+              {
+                icon: icon(iconMarker),
+              },
+            ).addTo(this.map);
+            markerCity.bindPopup(this.getHtmlPopup(resp));
+            this.customControl.update({
+              name: city.name,
+              humidity: resp.current.humidity,
+            });
+          },
+          error: (err) => {},
+        });
+    });
   }
 
   onMapClick(event: LeafletMouseEvent) {
@@ -111,7 +120,7 @@ export class HomeIndexComponent implements AfterViewInit, OnInit {
     return `
     <ul class="list-none list-inside">
       <li class="mb-1 font-bold">${props?.address}</li>
-      <li class="mb-1">Humedad: ${props?.current.humidity}%</li>
+      <li class="mb-1 font-bold">Humedad: ${props?.current.humidity}%</li>
       <li class="mb-1">Temperatura: ${props?.current.temp} °C</li>
       <li class="mb-1">
         <div class="flex gap-x-4">
@@ -130,11 +139,12 @@ export class CustomInfoControl extends Control {
   controlDiv = document.createElement('div');
   constructor(private infoText: string) {
     super({ position: 'topright' });
-    this.controlDiv.className = "bg-white p-2";
+    this.controlDiv.className = 'bg-white p-2';
   }
 
   override onAdd(map: Map): HTMLElement {
-    this.controlDiv.innerHTML = '<h4 class="font-bold">Humedad por ciudad:</h4>';
+    this.controlDiv.innerHTML =
+      '<h4 class="font-bold">Humedad por ciudad:</h4>';
     this.update();
     return this.controlDiv;
   }

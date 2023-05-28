@@ -22,7 +22,7 @@ export class WeatherLogIndexComponent implements OnInit {
 
   ngOnInit(): void {
    this.hs.titleHeader.emit('Histórico de consultas');
-   this.hs.descriptionHeader.emit("sdfa");
+   this.hs.descriptionHeader.emit("Detalles de las consultas que se han realizado. Se puede buscar dando click al botón o dando enter el campo de texto. Si se quiere buscar por fecha el formato es: YYYY-MM-DD");
 
    this.getWeatherLogs();
   }

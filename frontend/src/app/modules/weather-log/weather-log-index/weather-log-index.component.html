@@ -2,8 +2,12 @@
 
   <div class="max-w-xl lg:max-w-lg">
     <div class=" flex max-w-md gap-x-4">
-      <input id="search" name="search" type="text" autocomplete="off" required class="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2  shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6" placeholder="Buscar ..." #inputSearch (keyup.enter)="searchLogs()">
-      <button type="submit" class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500" (click)="searchLogs()" >Buscar</button>
+      <input id="search" name="search" type="text" autocomplete="off" required
+        class="min-w-0 flex-auto rounded-md border-0 px-3.5 py-2  shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6"
+        placeholder="Buscar ..." #inputSearch (keyup.enter)="searchLogs()">
+      <button type="submit"
+        class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+        (click)="searchLogs()">Buscar</button>
     </div>
   </div>
 
@@ -21,7 +25,7 @@
           <p class="text-sm font-semibold leading-6 text-gray-900">{{log.city}}</p>
           <p class="mt-1 truncate text-xs leading-5 text-gray-500">Humedad: {{log.humidity}}%</p>
           <p class=" truncate text-xs leading-5 text-gray-500">Fecha Consulta: <time
-              datetime="2023-01-23T13:23Z">{{log.created_at | date:'d/M/yyyy, h:mm:ss a'}}</time></p>
+              datetime="2023-01-23T13:23Z">{{log.created_at | date:'d-MM-yyyy, h:mm:ss a'}}</time></p>
         </div>
       </div>
       <div class="hidden sm:flex sm:flex-col sm:items-end">
