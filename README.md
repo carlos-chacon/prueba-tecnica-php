@@ -73,6 +73,9 @@ composer install
 ```sh
 php artisan migrate
 ```
+```sh
+exit
+```
 
 - _Después de realizar los pasos anterior los servicios (php) quedan expuestos en **http://localhost** ._
     _Existen dos servicios:_
