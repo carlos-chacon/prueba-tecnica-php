@@ -92,7 +92,7 @@ API_KEY_OPEN_WEATHER_MAP=
 
 ### Frontend Angular
 
-_Nos ubicamos en el directorio frontend del raíz del proyecto, y ejecutamos los siguientes comandos:_
+_Nos ubicamos en el directorio frontend de la raíz del proyecto, y ejecutamos los siguientes comandos:_
 
 ```sh
 cd frontend/
